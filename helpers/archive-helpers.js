@@ -31,6 +31,8 @@ exports.readListOfUrls = function(callback) {
 
 exports.isUrlInList = function(url, callback) {
   // checks if url is in the list
+
+  // 
 };
 
 exports.addUrlToList = function(url, callback) {

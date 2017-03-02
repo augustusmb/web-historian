@@ -26,33 +26,39 @@ exports.handleRequest = function (req, res) {
   var statusCode = 200; 
   var body = [];
   // refactor this code for serveAssets modularity
-  if (req.url === '/') {
+  if (req.method === 'GET') {
 
-    fs.readFile(__dirname + '/public/index.html', 'utf8', function(err, data) {
-      if (err) {
-        console.log('Here is your error: ', err);
-      } else {
-        console.log('Here is your data: ', data);
-        res.writeHead(statusCode, httpHelper.headers);
-        res.end(data);
-      }
-    });
-  } else {
-  // testing the second test with hardcoded test site
-    fs.readFile(archive.paths.archivedSites + '/' + req.url, 'utf8', function(err, data) {
-      if (err) {
-        console.log('Here is your error: ', err);
-        res.writeHead(404, httpHelper.headers);
-        res.end();
-      } else {
-        console.log('Here is your data: ', data);
-        res.writeHead(statusCode, httpHelper.headers);
-        res.end(data);
-      }
-    });
+    if (req.url === '/') {
+
+      fs.readFile(__dirname + '/public/index.html', 'utf8', function(err, data) {
+        if (err) {
+          console.log('Here is your error: ', err);
+        } else {
+          console.log('Here is your data: ', data);
+          res.writeHead(statusCode, httpHelper.headers);
+          res.end(data);
+        }
+      });
+    } else {
+    // testing the second test with hardcoded test site
+      fs.readFile(archive.paths.archivedSites + '/' + req.url, 'utf8', function(err, data) {
+        if (err) {
+          console.log('Here is your error: ', err);
+          res.writeHead(404, httpHelper.headers);
+          res.end();
+        } else {
+          console.log('Here is your data: ', data);
+          res.writeHead(statusCode, httpHelper.headers);
+          res.end(data);
+        }
+      });
+    }
+  } 
+
+  if (req.method === 'POST') {
+    fs.readFile(archive.paths.list + '/' + )
+    // use archive-helpers to handle request correctly
   }
-
-
   // res.end(archive.paths.list);
 };
 
