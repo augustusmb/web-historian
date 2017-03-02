@@ -26,16 +26,23 @@ exports.initialize = function(pathsObj) {
 // modularize your code. Keep it clean!
 
 exports.readListOfUrls = function(callback) {
+  // reads list of URLs in sites.txt
 };
 
 exports.isUrlInList = function(url, callback) {
+  // checks if url is in the list
 };
 
 exports.addUrlToList = function(url, callback) {
+  // fs.appendFile
 };
 
 exports.isUrlArchived = function(url, callback) {
+  // checks if file or url exists in archives/sites
 };
 
 exports.downloadUrls = function(urls) {
+  // for htmlfetcher worker
+
+  // how does the worker download
 };

@@ -21,11 +21,14 @@ exports.handleRequest = function (req, res) {
 
   // console.log('this is index: ', data);
   // res.end();
+  var url = req.url;
 
   var statusCode = 200; 
   var body = [];
+  // refactor this code for serveAssets modularity
   if (req.url === '/') {
-    var getHtml = fs.readFile(__dirname + '/public/index.html', 'utf8', function(err, data) {
+
+    fs.readFile(__dirname + '/public/index.html', 'utf8', function(err, data) {
       if (err) {
         console.log('Here is your error: ', err);
       } else {
@@ -35,9 +38,12 @@ exports.handleRequest = function (req, res) {
       }
     });
   } else {
-    var getGoogle = fs.readFile('/Users/student/Desktop/hrsf73-web-historian' + '/test/testdata/sites/www.google.com', 'utf8', function(err, data) {
+  // testing the second test with hardcoded test site
+    fs.readFile(archive.paths.archivedSites + '/' + req.url, 'utf8', function(err, data) {
       if (err) {
         console.log('Here is your error: ', err);
+        res.writeHead(404, httpHelper.headers);
+        res.end();
       } else {
         console.log('Here is your data: ', data);
         res.writeHead(statusCode, httpHelper.headers);
