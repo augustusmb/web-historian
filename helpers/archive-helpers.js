@@ -88,7 +88,18 @@ exports.isUrlArchived = function(url, callback) {
 };
 
 exports.downloadUrls = function(urls) {
-  // for htmlfetcher worker
+  // given all of the URLs, write it to the archive
 
-  // how does the worker download
+  urls.map(function(url) {
+    fs.writeFile(exports.paths.archivedSites + '/' + url, url, function(err) {
+      if (err) {
+        console.log(err);
+      }
+    });
+  });
+
+
+
+
+
 };
