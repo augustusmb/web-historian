@@ -33,7 +33,6 @@ exports.readListOfUrls = function(callback) {
     } else {
       console.log('Success, here are the contents: ', contents);
       callback(contents.split('\n'));
-
     }
   });
   // reads list of URLs in sites.txt 
@@ -53,11 +52,39 @@ exports.isUrlInList = function(url, callback) {
 };
 
 exports.addUrlToList = function(url, callback) {
-  // fs.appendFile
+  fs.readFile(exports.paths.list, 'utf8', function(err, contents) {
+    if (err) {
+      console.log('BUD you got an error, here it is: ', err);
+    } else {
+      console.log('Success, here are the contents: ', contents);
+      if (contents.split('\n').indexOf(url) === -1) {
+        fs.appendFile(exports.paths.list, url, function (err) {
+          if (err) {
+            console.error('here is the error');
+          } else {
+            console.log('Success HERE HERE');
+            callback();
+          }
+        });
+      }
+    }
+  });
+  
 };
 
 exports.isUrlArchived = function(url, callback) {
   // checks if file or url exists in archives/sites
+  fs.readdir(exports.paths.archivedSites, function(err, files) {
+    if (err) {
+      console.log('BUD you got an error, here it is: ', err);
+      return false;
+    } else {
+      console.log('Success, here are the contents: ', files);
+      callback(files.indexOf(url) !== -1);
+    }
+  });
+
+
 };
 
 exports.downloadUrls = function(urls) {
