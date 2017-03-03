@@ -56,9 +56,56 @@ exports.handleRequest = function (req, res) {
   } 
 
   if (req.method === 'POST') {
-    fs.readFile(archive.paths.list + '/' + )
+    // fs.readFile();
+
     // use archive-helpers to handle request correctly
+
+    // use on method request
+    // req.on('data', function(chunk) {
+    //   // need to parse our data received
+    //   var parsedData = JSON.parse(chunk);
+    //   fs.writeFile(archive.paths.list, '\n', function (err, data) {
+    //     if (err) {
+    //       console.log('Here is your error: ', err);
+    //       res.writeHead(404, httpHelper.headers);
+    //       res.end();
+    //     } else {
+    //       statusCode = 302;
+    //       console.log('Here is your data: ', data);
+    //       console.log('parsed data', parsedData);
+    //       console.log('JSON parse', JSON.parse(chunk));
+    //       res.writeHead(statusCode, httpHelper.headers);
+    //       res.end(data);
+    //     }
+    //   });
+    req.on('data', function (chunk) {
+      body.push(chunk.toString().slice(4));
+      fs.writeFile(archive.paths.list, body.join('') + '\n', function (err, data) {
+        if (err) {
+          res.writeHead(404, httpHelper.headers);
+          res.end();
+        } else {
+          statusCode = 302;
+          res.writeHead(statusCode, httpHelper.headers);
+          console.log('Here 3:', body[0]);
+          res.end(data);
+        }
+      });
+    });
   }
+
+  // read list of URLS
+    // check if urlinList
+      // if url is in list, check if url is archived
+
+      // else, addUrltothelist
+
+      // also, download the URL
+
+
+
+
+
   // res.end(archive.paths.list);
 };
 
