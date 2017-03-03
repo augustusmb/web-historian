@@ -42,11 +42,14 @@ exports.readListOfUrls = function(callback) {
 };
 
 exports.isUrlInList = function(url, callback) {
-  // checks if url is in the list
-  
-  // if true, isUrlArchived
-
-  // 
+  fs.readFile(exports.paths.list, 'utf8', function(err, contents) {
+    if (err) {
+      console.log('BUD you got an error, here it is: ', err);
+    } else {
+      console.log('Success, here are the contents: ', contents);
+      callback(contents.split('\n').indexOf(url) !== -1);
+    }
+  });
 };
 
 exports.addUrlToList = function(url, callback) {
